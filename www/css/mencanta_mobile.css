@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+.border_radius5 {
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;	
+	behavior:url(//www.comidaparaperro.com/skin/frontend/nuevainterfaz/default/css/IE_CSS3_efects/PIE.htc);
+    border-radius:5px;
+    border: 1px solid #ccc;
+}
+
+.border_radius10 {
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    -o-border-radius:10px;	
+	behavior:url(//www.comidaparaperro.com/skin/frontend/nuevainterfaz/default/css/IE_CSS3_efects/PIE.htc);
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+.circular {
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    -o-border-radius:50%;	
+	behavior:url(//www.comidaparaperro.com/skin/frontend/nuevainterfaz/default/css/IE_CSS3_efects/PIE.htc);
+    border-radius:50%;
+}
+
+.box_shadow {
+    -moz-box-shadow:2px 2px 5px #777;
+    -webkit-box-shadow:2px 2px 5px #777;
+    box-shadow:2px 2px 5px #777;
+    background:#fff;
+	behavior:url(//www.comidaparaperro.com/skin/frontend/nuevainterfaz/default/css/IE_CSS3_efects/PIE.htc);
+}
+
+@font-face{font-family:"PNovaExtraB";src:url(//static2.sd-assets.com/static/proximanova_extrabold/ProximaNova-Xbold-webfont-1ae3b68f1bf472684ea8481d691f1ee0.eot);src:url(//static4.sd-assets.com/static/proximanova_extrabold/ProximaNova-Xbold-webfont.eot?#iefix) format("embedded-opentype"),url(//static2.sd-assets.com/static/proximanova_extrabold/ProximaNova-Xbold-webfont-eac428df9ba233e3dcb14f74dacb140b.woff) format("woff"),url(//static3.sd-assets.com/static/proximanova_extrabold/ProximaNova-Xbold-webfont-ee12fa8ecb7dbabe0962ee6263b1ea24.ttf) format("truetype"),url(//static2.sd-assets.com/static/proximanova_extrabold/ProximaNova-Xbold-webfont.svg#ProximaNovaExtrabold) format("svg");font-weight:normal;font-style:normal}
+@font-face{font-family:"PNovaBold";src:url(//static3.sd-assets.com/static/proximanova_bold/ProximaNova-Bold-webfont-ce92ccee6b5eda29c679fa44a0e186e8.eot);src:url(//static3.sd-assets.com/static/proximanova_bold/ProximaNova-Bold-webfont.eot?#iefix) format("embedded-opentype"),url(//static4.sd-assets.com/static/proximanova_bold/ProximaNova-Bold-webfont-d7638ed4b3d749178f3bd5c6da24de93.woff) format("woff"),url(//static4.sd-assets.com/static/proximanova_bold/ProximaNova-Bold-webfont-0ef83d71dcc72ba5590ff6c949f7acd5.ttf) format("truetype"),url(//static3.sd-assets.com/static/proximanova_bold/proximanova_bold/ProximaNova-Bold-webfont.svg#ProximaNovaBold) format("svg");font-weight:normal;font-style:normal}
+@font-face{font-family:"PNovaSemiB";src:url(//static1.sd-assets.com/static/proximanova_semibold/ProximaNova-Sbold-webfont-634b9cdacfd62648defa30fc09a83614.eot);src:url(//static2.sd-assets.com/static/proximanova_semibold/ProximaNova-Sbold-webfont.eot?#iefix) format("embedded-opentype"),url(//static1.sd-assets.com/static/proximanova_semibold/ProximaNova-Sbold-webfont-81b17245244f8c1eee67be25865f0b22.woff) format("woff"),url(//static2.sd-assets.com/static/proximanova_semibold/ProximaNova-Sbold-webfont-bd5891300b3ae2dbe18dc4a692e9902d.ttf) format("truetype"),url(//static3.sd-assets.com/static/proximanova_semibold/ProximaNova-Sbold-webfont.svg#ProximaNovaSemibold) format("svg");font-weight:normal;font-style:normal}
+@font-face{font-family:"PNovaReg";src:url(//static2.sd-assets.com/static/proximanova_regular/ProximaNova-Reg-webfont-dc186ea1bce78e7ae5e0766156b1cf8b.eot);src:url(//static3.sd-assets.com/static/proximanova_regular/ProximaNova-Reg-webfont.eot?#iefix) format("embedded-opentype"),url(//static3.sd-assets.com/static/proximanova_regular/ProximaNova-Reg-webfont-fd229b3f4bc48e18f3f70abba3c1b253.woff) format("woff"),url(//static4.sd-assets.com/static/proximanova_regular/ProximaNova-Reg-webfont-36ce5284d90a64d5e7346cf62a02eaa5.ttf) format("truetype"),url(//static2.sd-assets.com/static/proximanova_regular/ProximaNova-Reg-webfont.svg#ProximaNovaRegular) format("svg");font-weight:normal;font-style:normal}
+@font-face{font-family:"Manuscrito";src:url(../fonts/PinyonScript-Regular.ttf)}
+
+	a{text-decoration:none}
+	a:hover{outline:none;text-decoration:none}
+	a:focus{outline-style:none;text-decoration:none}
+	ul,li{list-style-type:none}
+	
+	.box-container{margin-left:auto;margin-right:auto;position:relative;width:90%}
+
+	.clearfix:after{visibility:hidden;display:table;font-size:0;content:" ";clear:both;height:0}
+	footer>.box-container,.quick-links,.social{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+	header,footer,.page,.header-shadow,.section-header,.product-grid,.extra-section,.shipping-fee-note{clear:both}
+	.social a{display:block}
+	.client-services,.quick-links,.quick-links ul,.social,.social li{float:left}
+	.social>ul,footer,footer>.box-container,.page-banner{overflow:hidden}
+	header,.page,footer,.page-banner,.action-nav,.action-item,.action-item a{position:relative}
+	.social a,.copyright,.shipping-fee-note{text-align:center}
+	body,header,footer,.page,.header-shadow,.page-banner,.banner-shadow,.extra-section{width:100%}
+	header,footer{width:100%}
+	header{z-index:110}
+		
+	.titulo_ppal{float:left;width:100%;padding-top:13px;color:#7d7d7d;font-family:"PNovaReg",Helvetica,Arial;font-size:11px;font-weight:normal;letter-spacing:1.8px;text-transform:uppercase;margin-left:100px}
+	.action-nav{right:0;float:right}
+	.action-nav a{display:block}
+	.action-nav b{font-weight:normal}
+	.action-item{float:right}
+
+.action-item{margin-left:20px}
+.styles-link,.signin-link{color:#959595;font-family:"PNovaSemiB",Helvetica,Arial;font-size:11px;font-weight:normal;letter-spacing:1px;text-transform:uppercase;padding-bottom:7px;padding-top:11px;text-align:right}
+.styles-link .glyph,.signin-link .glyph{font-size:13px;padding-left:6px;top:1px;right:0}
+.styles-link{padding-left:10px;padding-right:10px}
+.styles-link:hover{color:#363636;font-family:"PNovaExtraB"}
+.signin-link{font-family:"PNovaReg";width:210px}
+.signin-link>b,.signin-link .glyph{color:#f2018a}
+.signin-link>b{font-family:"PNovaBold"}
+.signin-link:hover b{font-family:"PNovaExtraB"}
+
+html,body,.container,.row,#principal,.panel{height:100%;min-height:100%;}
+
+.intro-header{background:#000;height:53px;left:0;position:fixed;top:35px;width:100%;z-index:100;padding-left:130px;padding-right:130px;}
+
+
+.btn-pink{border:none; background-color:#f2018a;color:#fff;clear:both;cursor:pointer;display:block;font-family:"PNovaBold";font-weight:normal;line-height:1;text-align:center;text-transform:uppercase;-webkit-transition:background-color 0.5s ease-in 0s,color 0.5s ease-in 0s;-moz-transition:background-color 0.5s ease-in 0s,color 0.5s ease-in 0s;transition:background-color 0.5s ease-in 0s,color 0.5s ease-in 0s;font-size:15px;letter-spacing:3px;padding-bottom:17px;padding-top:17px;margin:0 auto 20px}
+.btn-pink span{display:inline-block;font-style:normal;font-weight:normal;line-height:1;speak:none;-webkit-transition:color 0.5s ease-in 0s;-moz-transition:color 0.5s ease-in 0s;transition:color 0.5s ease-in 0s;color:#fff;position:relative;top:1px}
+.btn-pink:hover{border:none;background-color:#000;color:#fff}
+.btn-pink:hover span{color:#fff}
+.btn-pink span{font-size:16px;padding-left:5px}
+
+
+body#home{
+	/*
+	background-image: url(../images/fondo_home.jpg);
+	background-position: center top;
+	background-repeat: repeat;
+	background-size: cover;
+	*/
+}
+
+.subscribe-banner>h2{margin-top:0;color:#363636;font-family:"PNovaBold",Helvetica,Arial;font-size:47px;font-weight:normal;letter-spacing:6px;text-transform:uppercase;margin-bottom:5px;padding:0 2%;}
+.subscribe-banner>h3{line-height: 200%;color:#000;font-family:Georgia,Helvetica,Arial;font-size:13px;font-weight:normal;letter-spacing:4px;text-transform:uppercase;margin:0 auto;padding-bottom:30px;padding:0 2%;}
+.subscribe-banner>h2,.subscribe-banner>h3,.login-link{text-align:center}
+.subscribe-banner{
+-webkit-box-sizing:border-box;
+-moz-box-sizing:border-box;
+box-sizing:border-box;
+-webkit-box-shadow:0 0 15px 0 #ccc;
+box-shadow:0 0 15px 0 #ccc;
+background:#fff;
+opacity:0.90;
+padding:34px 0 20px;
+ width:100%;
+ position:relative;
+ margin:0;
+ display:block;
+ float:left;
+ margin-left:2px; /*para vista en moviles pantalla minima*/
+}
+
+ul.works-steps {
+	overflow:hidden;
+	padding:0px;
+	margin:0px;
+	overflow:hidden;
+	margin-bottom:20px;
+}
+
+.works-steps>li{min-width:27%;color:#000;font-family:"PNovaReg",Helvetica,Arial;font-size:15px;font-weight:normal;letter-spacing:normal;text-transform:none;float:left;margin-left:30px}
+.works-steps span{color:#000;font-family:Georgia,Helvetica,Arial;font-size:24px;font-weight:normal;letter-spacing:normal;text-transform:none}
+
+.subscribe-banner>h3{
+padding-bottom:2%;
+}
+
+.works-steps>li{
+padding:2%;
+margin-left:0%;
+}
+
+.preload {display: none;}
+ 
+#spinner, #spinner2 {
+ 	display:none;
+    background: url("../images/spinner.gif") no-repeat scroll 0 0 transparent;
+    height:128px;
+    width:128px;
+    z-index:3;
+}
+#spinner2 {
+	background: url("../images/preloader.gif") no-repeat scroll 0 0 transparent;
+}
+
+.hide{
+	display:none !important;
+}
+
+
+

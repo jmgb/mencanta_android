@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+	<html lang="es">
+	
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="PushNotification.js"></script>  
+        <script type="text/javascript" src="cdv-plugin-fb-connect.js"></script > 
+		<script type="text/javascript" src="facebook-js-sdk.js"></script > 		
+		<link type="text/css" rel="stylesheet" href="css/mencanta_mobile.css"/>	     
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>	
+		  		
+        <title>Mencanta - mobile login</title>        
+    </head>
+       
+    <body id="home">   
+		
+		<!--
+		<button onclick="login()">Login</button>
+		<button onclick="me()">Me</button>
+		<button onclick="getSession()">Get session</button>
+		<button onclick="getLoginStatus()">Get login</button>
+		<button onclick="logout()">Logout</button>
+		<button onclick="facebookWallPost()">facebookWallPost</button>
+		<button onclick="publishStoryFriend()">friendstory</button>
+        -->
+        
+        
+		<script>
+        	//<!-- These are the notifications that are displayed to the user through pop-ups if the above JS files does not exist in the same directory -->
+            //if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
+            //if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
+            //if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+            
+            FB.Event.subscribe('auth.login', function(response) {
+            	alert('auth.login event');
+          	});
+            
+            FB.Event.subscribe('auth.logout', function(response) {
+            	alert('auth.logout event');
+           	});
+            
+            FB.Event.subscribe('auth.sessionChange', function(response) {
+            	alert('auth.sessionChange event');
+            });
+            
+            FB.Event.subscribe('auth.statusChange', function(response) {
+            	alert('auth.statusChange event');
+            });
+            
+            /*
+            function getSession() {
+                alert("session: " + JSON.stringify(FB.getSession()));
+            }
+            */
+            
+            function getLoginStatus() {
+                FB.getLoginStatus(function(response) {
+                	if (response.status == 'connected') {
+                    	alert('logged in');
+                   	} else {
+                    	alert('not logged in');
+             		}
+          		});
+            }
+            
+            var friendIDs = [];
+			var fdata;
+            function me() {
+                FB.api('/me/friends', { fields: 'id, name, picture' },  function(response) {
+                	if (response.error) {
+                       alert(JSON.stringify(response.error));
+                    } else {
+                       	var data = document.getElementById('data');
+					   	fdata=response.data;
+					   	console.log("fdata: "+fdata);
+                       	response.data.forEach(function(item) {
+                       		var d = document.createElement('div');
+                            d.innerHTML = "<img src="+item.picture+"/>"+item.name;
+                            data.appendChild(d);
+                      	});
+                    }
+                    
+					var friends = response.data;
+					console.log(friends.length); 
+					for (var k = 0; k < friends.length && k < 200; k++) {
+				        var friend = friends[k];
+				        var index = 1;
+
+				        friendIDs[k] = friend.id;
+				        //friendsInfo[k] = friend;
+					}
+					console.log("friendId's: "+friendIDs);
+              	});
+            }
+            
+            function logout() {
+                FB.logout(function(response) {
+            		alert('logged out');
+               	});
+            }
+            
+            function login() {
+                FB.login(
+              		function(response) {
+
+
+              			// VER EL FORMATO QUE TRAE RENSPONSE PARA LEER TODOS LOS PARAMETROS
+                  		alert(response);
+
+                  		// serializar response para ver los argumentos
+                  		
+                    	if (response.session) {
+                        	alert('logged in');
+
+
+                        	// coger registration_id,
+                        	
+//llamada ajax al servidor con la informacion del response.user... etc;
+
+                        	// redirect a /main
+
+                        	// response.getaccessToken??
+
+                        	// ajax pasando el accessToken   y en el servidor (/conectaFB.php) recibe por ajax en el servidor Y hago el setAcessToken para seguir usando 
+
+                        	
+                      	} else {
+                        	alert('not logged in');
+                        }
+                  	},
+                    { scope: "email,user_birthday,user_likes,user_location,friends_birthday,read_friendlists" }                    
+             	);
+            }			
+			
+			function facebookWallPost() {
+			    console.log('Debug 1');
+				var params = {
+				    method: 'feed',
+				    name: 'Facebook Dialogs',
+				    link: 'https://developers.facebook.com/docs/reference/dialogs/',
+				    picture: 'http://fbrell.com/f8.jpg',
+				    caption: 'Reference Documentation',
+				    description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+				  };
+				console.log(params);
+			    FB.ui(params, function(obj) { console.log(obj);});
+			}
+            	
+			function publishStoryFriend() {
+				randNum = Math.floor ( Math.random() * friendIDs.length ); 
+
+				var friendID = friendIDs[randNum];
+				if (friendID == undefined){
+					alert('please click the me button to get a list of friends first');
+				}else{
+			    	console.log("friend id: " + friendID );
+			        console.log('Opening a dialog for friendID: ', friendID);
+			        var params = {
+			        	method: 'feed',
+			            to: friendID.toString(),
+			            name: 'Facebook Dialogs',
+			            link: 'https://developers.facebook.com/docs/reference/dialogs/',
+			            picture: 'http://fbrell.com/f8.jpg',
+			            caption: 'Reference Documentation',
+			            description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
+			     	};
+					FB.ui(params, function(obj) { console.log(obj);});
+			    }
+			}
+
+            
+            document.addEventListener('deviceready', function() {
+            	try {
+	                	alert('Device is ready! Make sure you set your app_id below this alert.');
+	                    FB.init({ appId: '756442707703131', nativeInterface: CDV.FB, useCachedDialogs: false });
+	   					document.getElementById('data').innerHTML = "";
+                    } catch (e) {
+                    	alert(e);
+                    }
+               	}, false);
+           	
+           	
+            </script>          
+        
+        
+        
+    
+      	<!-- This initializes the Facebook JS SDK. -->
+    	<div id="fb-root"></div>             
+		  
+  	<div class="container">
+  
+  		<div class="row">
+  	
+			<div class="col-xs-12">	
+		
+		 		<div id="log"></div> 
+		        <div id="data">cargando...</div>
+	
+				<div style="margin-top:5%"></div>
+	
+  				<section class="subscribe-banner">				
+  				
+   					<h2 style="font-size:40px;">Vu&eacute;lvete loca</h2>
+    				<h3>El secreto est&aacute; en los complementos</h3>
+    			
+	    			<div class="col-xs-10 col-xs-offset-1">
+	      				<ul class="works-steps">      				
+	    					<li><span>1.</span> Ap&uacute;ntate ahora</li>
+	    					<li><span>2.</span> Descubre tendencias y nuevos modelos</li>
+	    					<li><span>3.</span> &iexcl;Enam&oacute;rate cada d&iacute;a!</li> 
+	  					</ul>				
+	   				</div>      	   
+					  				            	  
+					<a href="#" class="btn-pink login_button" style="width:275px; letter-spacing:2px; margin:0 auto 10px;">Descubrir colecciones<span class="glyphicon glyphicon-chevron-right""></span> </a>
+	   
+  				</section>    
+  				
+ 				<input type='hidden' class='reg_id' value='0' />			
+ 
+    		</div>  		
+   		</div>  		
+	</div>
+	
+	       	<!--  
+		
+		<div id="home">
+			<div id="app-status-div">
+				<ul id="app-status-ul">
+					<li>Cordova PushNotification Plugin Demo</li>
+				</ul>
+			</div>			
+		</div>
+	 	
+	 	-->	
+	 	
+	
+	<div id="spinner"></div>
+		
+      	<script type='text/javascript'>
+      	
+            $(function(){         
+            	
+            	$('.login_button').on('click', function(e){  
+            		e.preventDefault();
+
+            		//$(this).hide();
+        			$("#spinner").show();
+
+	        		var registration_id = $(".reg_id").val();	    		
+	        		alert("REGISTRATION ID = "+registration_id);	
+	        		
+            		login();   		
+            		
+
+          			// VER SI FUNCIONA
+        			ga('send', {
+        				  'hitType': 'event',          		// Required.
+        				  'eventCategory': 'FB_login',   	// Required.
+        				  'eventAction': 'click',      		// Required.
+        				  'eventLabel': 'desde_home'
+        			});	
+        			        			
+        			//top.location.href = loginURL;
+        			
+            	});
+
+            });
+   		</script>
+
+	
+	
+	    <!-- Facebook JavaScript -->	    
+	    <!--  
+	    <script type="text/javascript">
+	         document.addEventListener('deviceready', function() {
+	            // window.fbAsyncInit = function() {
+	            console.log('here')
+	              FB.init({
+	                  appId: '756442707703131',
+	                  nativeInterface: CDV.FB,
+	                  status     : true, // check login status
+	                  //cookie     : true, // enable cookies to allow the server to access the session
+	                  xfbml: true,
+	                  useCachedDialogs: false
+	              });
+	              FB.Event.subscribe('auth.statusChange', handleStatusChange);
+	              FB.getLoginStatus(handleStatusChange);
+	          });
+	    </script>
+   		
+   		-->
+   		
+   		
+    
+    	<script type="text/javascript">
+
+    		var registration_id;
+    		
+            var pushNotification;
+            
+            function onDeviceReady() {
+                
+                $("#app-status-ul").append('<li>deviceready event received</li>');
+                
+				document.addEventListener("backbutton", function(e)
+				{
+                	$("#app-status-ul").append('<li>backbutton event received</li>');
+  					
+      				if( $("#home").length > 0)
+					{
+						// call this to get a new token each time. don't call it to reuse existing token.
+						//pushNotification.unregister(successHandler, errorHandler);
+						e.preventDefault();
+						navigator.app.exitApp();
+					}
+					else
+					{
+						navigator.app.backHistory();
+					}
+				}, false);
+			
+				try 
+				{ 
+                	pushNotification = window.plugins.pushNotification;
+                	if (device.platform == 'android' || device.platform == 'Android') {
+						$("#app-status-ul").append('<li>registering android</li>');
+                    	pushNotification.register(successHandler, errorHandler, {"senderID":"335933858542","ecb":"onNotificationGCM"});		
+                    	// required!
+                    	
+					} else {
+						$("#app-status-ul").append('<li>registering iOS</li>');
+                    	pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
+                	}
+                }
+				catch(err) 
+				{ 
+					txt="There was an error on this page.\n\n"; 
+					txt+="Error description: " + err.message + "\n\n"; 
+					alert(txt); 
+				} 
+            }
+            
+            // handle APNS notifications for iOS
+            function onNotificationAPN(e) {
+                if (e.alert) {
+                     $("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
+                     navigator.notification.alert(e.alert);
+                }
+                    
+                if (e.sound) {
+                    var snd = new Media(e.sound);
+                    snd.play();
+                }
+                
+                if (e.badge) {
+                    pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+                }
+            }
+            
+            // handle GCM notifications for Android
+            function onNotificationGCM(e) {
+                $("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
+                
+                switch( e.event )
+                {
+                    case 'registered':
+					if ( e.regid.length > 0 )
+					{
+						registration_id = e.regid;
+						
+		            	$('input.reg_id').val("" + e.regid + "");	        		
+						
+						$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+						// Your GCM push server needs to know the regID before it can push to this device
+						// here is where you might want to send it the regID for later use.
+						
+						// FALTA GUARDAR EL REGISTRATION_ID
+						console.log("regID = " + e.regid);
+					}
+                    break;
+                    
+                    case 'message':
+                    	// if this flag is set, this notification happened while we were in the foreground.
+                    	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
+                    	if (e.foreground)
+                    	{
+							$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+							
+							// if the notification contains a soundname, play it.
+							var my_media = new Media("/android_asset/www/"+e.soundname);
+							my_media.play();
+						}
+						else
+						{	// otherwise we were launched because the user touched a notification in the notification tray.
+							if (e.coldstart)
+								$("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+							else
+							$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+						}
+							
+						$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+						$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+                    break;
+                    
+                    case 'error':
+						$("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+                    break;
+                    
+                    default:
+						$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+                    break;
+                }
+            }
+            
+            function tokenHandler (result) {
+                $("#app-status-ul").append('<li>token: '+ result +'</li>');
+                // Your iOS push server needs to know the token before it can push to this device
+                // here is where you might want to send it the token for later use.
+            }
+			
+            function successHandler (result) {
+                $("#app-status-ul").append('<li>success:'+ result +'</li>');
+            }
+            
+            function errorHandler (error) {
+                $("#app-status-ul").append('<li>error:'+ error +'</li>');
+            }
+            
+			document.addEventListener('deviceready', onDeviceReady, true);
+
+        </script>
+        
+         
+		
+
+
+    	<script type="text/javascript">
+	        
+			// Wait for PhoneGap to load
+	        document.addEventListener("deviceready", onDeviceReady, false);           
+        	
+	        function onDeviceReady() {	        		
+	        		    		
+	      		var networkState = checkConnection();
+	      		
+	        	 /* load local files if there is not network connection */
+	        	if (networkState == Connection.NONE || networkState == Connection.UNKNOWN) {
+	
+	            	// window.location="local/index.html";
+	        		navigator.notification.alert(
+	                	'Por favor, abre MENCANTA cuando tengas acceso a Internet y te mostraremos los mejores bolsos del mundo', 	// message            	       
+			        	cerrarApp,         					// callback
+			        	'MENCANTA necesita Internet :(',  	// title
+			        	'OK'                  				// buttonName            	       	
+	            	);
+	        	} else {
+	            	
+	        		//alert("NetworkState: " + networkState);	     
+	        		   
+	        		//window.location="http://www.mencanta.mobi";	
+	        		
+	        		// SI PONGO UN ALERT ANTES SI FUNCIONA, PERO SI NO, CREO QUE NO DA TIEMPO A QUE SE EJECUTE EL OTRO SRIPT
+	        		//var registration_id = $(".reg_id").val();	    		
+	        		//alert("final - REGISTRATION ID = "+registration_id);		        		
+	        	}  	            
+	       	}
+
+	        function checkConnection() {
+	            var networkState = navigator.connection.type;            
+	            var states = {};
+	            states[Connection.UNKNOWN]  = 'Unknown connection';
+	            states[Connection.ETHERNET] = 'Ethernet connection';
+	            states[Connection.WIFI]     = 'WiFi connection';
+	            states[Connection.CELL_2G]  = 'Cell 2G connection';
+	            states[Connection.CELL_3G]  = 'Cell 3G connection';
+	            states[Connection.CELL_4G]  = 'Cell 4G connection';
+	            states[Connection.CELL]     = 'Cell generic connection';            
+	            states[Connection.NONE]     = 'No network connection';	          
+	            return networkState;          
+	        }
+	
+	     	// process the callback
+	        function cerrarApp() {
+	            // cerrar la app
+	            navigator.app.exitApp();
+	        }      		
+	        
+		</script>
+		
+    </body> 
+    
+</html>
